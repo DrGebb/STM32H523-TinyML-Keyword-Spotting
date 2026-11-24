@@ -1,0 +1,15 @@
+layer:
+  type: Edge Impulse layer
+  description: Edge Impulse SDK and model
+
+  packs:
+    - pack: EdgeImpulse::EI-SDK@1.97.7
+    - pack: EdgeImpulse::DrGebb1889-project-1@51.0.0
+    - pack: ARM::CMSIS-NN@4.0.0
+    - pack: ARM::CMSIS-DSP@1.15.0
+
+  components:
+    - component: EdgeImpulse::EdgeImpulse:SDK@1.97.7
+    - component: EdgeImpulse::EdgeImpulse:model:DrGebb1889-project-1@51.0.0
+    - component: CMSIS:DSP&Source
+    - component: CMSIS:NN Lib

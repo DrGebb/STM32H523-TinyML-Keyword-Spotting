@@ -1,0 +1,62 @@
+default:
+
+  misc:
+    - for-compiler: AC6
+      C-CPP:
+        - -Wno-macro-redefined
+        - -Wno-pragma-pack
+        - -Wno-parentheses-equality
+        - -Wno-license-management
+      C:
+        - -std=gnu11
+        - -ffunction-sections # added default
+        - -fdata-sections # added default
+      ASM:
+        - -masm=auto
+      Link:
+        - --entry=Reset_Handler
+        - --info=summarysizes
+        - --summary_stderr
+        - --diag_suppress=L6314W
+        - --map # added default
+        - --load_addr_map_info # added default
+        - --xref # added default
+        - --callgraph # added default
+        - --symbols # added default
+        - --info=sizes # added default
+        - --info=totals # added default
+        - --info=unused # added default
+        - --info=veneers # added default
+        - --strict # added default
+        - --remove # added default
+
+    - for-compiler: GCC
+      C-CPP:
+        - -masm-syntax-unified
+        - -fomit-frame-pointer
+        - -ffunction-sections
+        - -fdata-sections
+      C:
+        - -std=gnu11
+      Link:
+        - --specs=nano.specs
+        - --specs=nosys.specs
+        - -Wl,-print-memory-usage
+        - -Wl,--gc-sections
+        - -Wl,--no-warn-rwx-segments   # suppress incorrect linker warning
+
+    - for-compiler: CLANG
+      C-CPP:
+        - -fomit-frame-pointer
+        - -ffunction-sections
+        - -fdata-sections
+      C:
+        - -std=gnu11
+      Link:
+        - -Wl,-print-memory-usage
+        - -Wl,--gc-sections
+
+    - for-compiler: IAR
+      C-CPP:
+        - -e
+        - --dlib_config DLib_Config_Full.h

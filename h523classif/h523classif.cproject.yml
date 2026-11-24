@@ -1,0 +1,58 @@
+# A project translates into one executable or library.
+project:
+
+  define:
+    - USE_RTOS2
+    - HSE_VALUE: 8000000
+
+  add-path:
+    - ./lib/inc
+    - ./ai
+    - ./ssd1306_LL
+
+  groups:
+    - group: Source Files
+      files:
+        - file: ./app_main.c
+        - file: ./ai/ei_inference.cpp
+        - file: ./ai/ei_porting.cpp
+
+    - group: myLL
+      files:
+        - file: ./lib/src/i2s_LL.c
+        - file: ./lib/src/i2c_LL.c
+        - file: ./lib/src/delay_LL.c
+        - file: ./lib/src/mic_imn44.c
+    - group: LL HAL
+      files:
+      #  - file: ../STM32CubeMX/STM32H523CETx/STM32CubeMX/Drivers/STM32H5xx_HAL_Driver/Src/stm32h5xx_ll_dma.c
+      # - file: ../STM32CubeMX/STM32H523CETx/STM32CubeMX/Drivers/STM32H5xx_HAL_Driver/Src/stm32h5xx_ll_spi.c
+      - file: ../STM32CubeMX/STM32H523CETx/STM32CubeMX/Drivers/STM32H5xx_HAL_Driver/Src/stm32h5xx_ll_i2c.c
+
+    - group: SSD1306
+      files:
+        - file: ./ssd1306_LL/ssd1306_fonts.c
+        - file: ./ssd1306_LL/ssd1306.c
+        - file: ./ssd1306_LL/oled_task.c
+
+
+
+      # List components to use for your application.
+      # A software component is a re-usable unit that may be configurable.
+  components:
+    - component: ARM::CMSIS:CORE
+    - component: Device:CubeMX
+    - component: CMSIS:OS Tick:SysTick
+    - component: CMSIS:RTOS2:Keil RTX5&Library
+
+  layers:
+    - layer: ./edgeimpulse.clayer.yml
+
+  # List executable file formats to be generated.
+  output:
+    type:
+      - elf
+      - hex
+      - map
+  packs:
+    - pack: ARM::CMSIS-RTX
